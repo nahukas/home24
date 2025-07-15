@@ -14,5 +14,6 @@ module.exports = {
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy'
   },
   testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+  testPathIgnorePatterns: ['<rootDir>/tests/e2e/'],
   transformIgnorePatterns: ['/node_modules/(?!(@testing-library)/)']
 };
