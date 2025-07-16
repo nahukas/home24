@@ -1,8 +1,7 @@
-import { render, screen, fireEvent } from '@testing-library/react';
-import { ThemeProvider } from '@emotion/react';
-import { theme } from '../../styles/theme';
+import { screen, fireEvent } from '@testing-library/react';
 import CartSummary from '../CartSummary';
-import { CartProvider, useCart } from '../../context/cartContext';
+import { useCart } from '../../context/cartContext';
+import { renderWithProviders } from '../../test/utils/renderWithProviders';
 
 jest.mock('../../context/cartContext', () => ({
   useCart: jest.fn(),
@@ -34,40 +33,21 @@ describe('CartSummary', () => {
   });
 
   test('displays correct total quantity in cart count', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <CartSummary />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<CartSummary />);
 
     expect(screen.getByText('3')).toBeInTheDocument();
   });
 
   test('displays "Cart is empty" when cart is empty', () => {
     mockUseCart.mockReturnValue({ ...mockCartContext, cartItems: [] });
-
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <CartSummary />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<CartSummary />);
 
     fireEvent.click(screen.getByTestId('cart-icon'));
     expect(screen.getByText('Cart is empty')).toBeInTheDocument();
   });
 
   test('formats prices with two decimals in dropdown', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <CartSummary />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<CartSummary />);
 
     fireEvent.click(screen.getByTestId('cart-icon'));
     expect(screen.getByText('101,00 €')).toBeInTheDocument();
@@ -75,13 +55,7 @@ describe('CartSummary', () => {
   });
 
   test('calls incrementItem when "+" button is clicked', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <CartSummary />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<CartSummary />);
 
     fireEvent.click(screen.getByTestId('cart-icon'));
     const incrementButton = screen.getAllByText('+')[0];
@@ -90,13 +64,7 @@ describe('CartSummary', () => {
   });
 
   test('calls decrementItem when "-" button is clicked', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <CartSummary />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<CartSummary />);
 
     fireEvent.click(screen.getByTestId('cart-icon'));
     const decrementButton = screen.getAllByText('-')[0];
@@ -105,13 +73,7 @@ describe('CartSummary', () => {
   });
 
   test('calls removeFromCart when trash icon is clicked', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <CartSummary />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<CartSummary />);
 
     fireEvent.click(screen.getByTestId('cart-icon'));
     const trashButton = screen.getByTestId('trash-icon-1');
@@ -120,13 +82,7 @@ describe('CartSummary', () => {
   });
 
   test('calls clearCart when "Clear Cart" button is clicked', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <CartSummary />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<CartSummary />);
 
     fireEvent.click(screen.getByTestId('cart-icon'));
     fireEvent.click(screen.getByText('Clear Cart'));
@@ -134,13 +90,7 @@ describe('CartSummary', () => {
   });
 
   test('toggles dropdown when cart icon is clicked', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <CartSummary />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<CartSummary />);
 
     const cartIcon = screen.getByTestId('cart-icon');
     expect(screen.queryByText('Tisch (x2)')).not.toBeInTheDocument();
@@ -154,14 +104,7 @@ describe('CartSummary', () => {
 
   test('renders empty cart without dropdown initially', () => {
     mockUseCart.mockReturnValue({ ...mockCartContext, cartItems: [] });
-
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <CartSummary />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<CartSummary />);
 
     expect(screen.getByText('0')).toBeInTheDocument();
     expect(screen.queryByText('Cart is empty')).not.toBeInTheDocument();

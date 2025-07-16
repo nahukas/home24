@@ -1,9 +1,7 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { screen, waitFor, within } from '@testing-library/react';
 import ProductList from './ProductList';
 import { Category } from './types';
-import { ThemeProvider } from '@emotion/react';
-import { theme } from './styles/theme';
-import { CartProvider } from './context/cartContext';
+import { renderWithProviders } from './test/utils/renderWithProviders';
 
 jest.mock('./assets/logo.svg', () => 'mocked-logo.svg');
 
@@ -27,13 +25,8 @@ describe('ProductList', () => {
   });
 
   it('renders the ProductList with home24 branding', async () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <ProductList />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<ProductList />);
+
     await waitFor(() =>
       expect(screen.getByAltText('Logo')).toBeInTheDocument()
     );
@@ -54,13 +47,7 @@ describe('ProductList', () => {
         )
     );
 
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <ProductList />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<ProductList />);
 
     const aside = screen.getByRole('complementary');
     await waitFor(() =>
@@ -69,18 +56,13 @@ describe('ProductList', () => {
   });
 
   it('renders categories after fetch', async () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <ProductList />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<ProductList />);
     await waitFor(() =>
       expect(
         screen.getByRole('heading', { name: /Furniture.*\(50\)/ })
       ).toBeInTheDocument()
     );
+
     expect(screen.getByText('Chairs')).toBeInTheDocument();
   });
 
@@ -90,13 +72,8 @@ describe('ProductList', () => {
       status: 500
     });
 
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <ProductList />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<ProductList />);
+
     await waitFor(() => {
       const aside = screen.getByRole('complementary');
       expect(
@@ -111,13 +88,8 @@ describe('ProductList', () => {
       json: async () => ({ data: { categories: [] } })
     });
 
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <ProductList />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<ProductList />);
+
     await waitFor(() =>
       expect(screen.getByText('No categories found')).toBeInTheDocument()
     );

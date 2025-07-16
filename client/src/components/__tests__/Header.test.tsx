@@ -1,20 +1,12 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import Header from '../Header';
-import { ThemeProvider } from '@emotion/react';
-import { theme } from '../../styles/theme';
-import { CartProvider } from '../../context/cartContext';
+import { renderWithProviders } from '../../test/utils/renderWithProviders';
 
 jest.mock('../../assets/logo.svg', () => 'mocked-logo.svg');
 
 describe('Header', () => {
   test('renders header with logo, search input, and cart', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <Header />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<Header />);
 
     expect(screen.getByAltText('Logo')).toBeInTheDocument();
     expect(

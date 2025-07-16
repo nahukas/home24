@@ -1,9 +1,7 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import { ArticleCard } from '../ArticleCard';
 import { Article } from '../../types';
-import { ThemeProvider } from '@emotion/react';
-import { theme } from '../../styles/theme';
-import { CartProvider } from '../../context/cartContext';
+import { renderWithProviders } from '../../test/utils/renderWithProviders';
 
 describe('ArticleCard', () => {
   const mockArticle: Article = {
@@ -12,7 +10,7 @@ describe('ArticleCard', () => {
     prices: {
       currency: 'EUR',
       regular: {
-        value: 9999 // 99.99 EUR
+        value: 9999
       }
     },
     images: [
@@ -23,13 +21,8 @@ describe('ArticleCard', () => {
   };
 
   it('renders article details correctly', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <ArticleCard article={mockArticle} />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<ArticleCard article={mockArticle} />);
+
     expect(screen.getByText('Test Product')).toBeInTheDocument();
     expect(screen.getByText('99,99 €')).toBeInTheDocument();
     expect(
@@ -42,13 +35,8 @@ describe('ArticleCard', () => {
   });
 
   it('formats price correctly', () => {
-    render(
-      <ThemeProvider theme={theme}>
-        <CartProvider>
-          <ArticleCard article={mockArticle} />
-        </CartProvider>
-      </ThemeProvider>
-    );
+    renderWithProviders(<ArticleCard article={mockArticle} />);
+
     expect(screen.getByText('99,99 €')).toBeInTheDocument();
   });
 });

@@ -3,7 +3,7 @@ import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Content from './components/Content';
 import Footer from './components/Footer';
-import useCategories from './hooks/useCategories';
+import useProductData from './hooks/useProductData';
 import { layout, LayoutProps, space, SpaceProps } from 'styled-system';
 import styled from '@emotion/styled';
 
@@ -21,7 +21,7 @@ const PageContainer = styled.div<SpaceProps & LayoutProps>`
 `;
 
 const ProductList: React.FC = () => {
-  const { categories, loading, error } = useCategories();
+  const { categories, loading, error } = useProductData();
 
   return (
     <PageContainer>

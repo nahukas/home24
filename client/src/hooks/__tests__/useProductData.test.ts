@@ -1,8 +1,8 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import useCategories from '../useCategories';
+import useProductData from '../useProductData';
 import { Category } from '../../types';
 
-describe('useCategories', () => {
+describe('useProductData', () => {
   const mockCategories: Category[] = [
     {
       name: 'Furniture',
@@ -19,7 +19,7 @@ describe('useCategories', () => {
   it('initializes with loading state', () => {
     (global.fetch as jest.Mock).mockImplementation(() => new Promise(() => {}));
 
-    const { result } = renderHook(() => useCategories());
+    const { result } = renderHook(() => useProductData());
 
     expect(result.current).toEqual({
       categories: [],
@@ -34,7 +34,7 @@ describe('useCategories', () => {
       json: async () => ({ data: { categories: mockCategories } })
     });
 
-    const { result } = renderHook(() => useCategories());
+    const { result } = renderHook(() => useProductData());
 
     await waitFor(() => expect(result.current.loading).toBe(false));
 
@@ -49,7 +49,7 @@ describe('useCategories', () => {
       status: 500
     });
 
-    const { result } = renderHook(() => useCategories());
+    const { result } = renderHook(() => useProductData());
 
     await waitFor(() => expect(result.current.loading).toBe(false));
 
@@ -63,7 +63,7 @@ describe('useCategories', () => {
       json: async () => ({ data: { categories: [] } })
     });
 
-    const { result } = renderHook(() => useCategories());
+    const { result } = renderHook(() => useProductData());
 
     await waitFor(() => expect(result.current.loading).toBe(false));
 
@@ -76,7 +76,7 @@ describe('useCategories', () => {
       new Error('Network error')
     );
 
-    const { result } = renderHook(() => useCategories());
+    const { result } = renderHook(() => useProductData());
 
     await waitFor(() => expect(result.current.loading).toBe(false));
 
