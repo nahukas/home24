@@ -3,6 +3,7 @@ import ProductList from './ProductList';
 import { Category } from './types';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from './styles/theme';
+import { CartProvider } from './context/cartContext';
 
 jest.mock('./assets/logo.svg', () => 'mocked-logo.svg');
 
@@ -28,7 +29,9 @@ describe('ProductList', () => {
   it('renders the ProductList with home24 branding', async () => {
     render(
       <ThemeProvider theme={theme}>
-        <ProductList />
+        <CartProvider>
+          <ProductList />
+        </CartProvider>
       </ThemeProvider>
     );
     await waitFor(() =>
@@ -53,7 +56,9 @@ describe('ProductList', () => {
 
     render(
       <ThemeProvider theme={theme}>
-        <ProductList />
+        <CartProvider>
+          <ProductList />
+        </CartProvider>
       </ThemeProvider>
     );
 
@@ -66,7 +71,9 @@ describe('ProductList', () => {
   it('renders categories after fetch', async () => {
     render(
       <ThemeProvider theme={theme}>
-        <ProductList />
+        <CartProvider>
+          <ProductList />
+        </CartProvider>
       </ThemeProvider>
     );
     await waitFor(() =>
@@ -85,7 +92,9 @@ describe('ProductList', () => {
 
     render(
       <ThemeProvider theme={theme}>
-        <ProductList />
+        <CartProvider>
+          <ProductList />
+        </CartProvider>
       </ThemeProvider>
     );
     await waitFor(() => {
@@ -104,7 +113,9 @@ describe('ProductList', () => {
 
     render(
       <ThemeProvider theme={theme}>
-        <ProductList />
+        <CartProvider>
+          <ProductList />
+        </CartProvider>
       </ThemeProvider>
     );
     await waitFor(() =>

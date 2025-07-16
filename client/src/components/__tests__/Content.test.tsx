@@ -3,6 +3,7 @@ import Content from '../Content';
 import { Category } from '../../types';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from '../../styles/theme';
+import { CartProvider } from '../../context/cartContext';
 
 describe('Content', () => {
   const mockCategories: Category[] = [
@@ -26,7 +27,9 @@ describe('Content', () => {
   it('renders loading state', () => {
     render(
       <ThemeProvider theme={theme}>
-        <Content categories={[]} loading={true} error={null} />
+        <CartProvider>
+          <Content categories={[]} loading={true} error={null} />
+        </CartProvider>
       </ThemeProvider>
     );
     expect(screen.getByText('Loading...')).toBeInTheDocument();
@@ -35,7 +38,9 @@ describe('Content', () => {
   it('renders error state', () => {
     render(
       <ThemeProvider theme={theme}>
-        <Content categories={[]} loading={false} error='Failed to load' />
+        <CartProvider>
+          <Content categories={[]} loading={false} error='Failed to load' />
+        </CartProvider>
       </ThemeProvider>
     );
     expect(screen.getByText('Error: Failed to load')).toBeInTheDocument();
@@ -44,7 +49,9 @@ describe('Content', () => {
   it('renders articles from categories', () => {
     render(
       <ThemeProvider theme={theme}>
-        <Content categories={mockCategories} loading={false} error={null} />
+        <CartProvider>
+          <Content categories={mockCategories} loading={false} error={null} />
+        </CartProvider>
       </ThemeProvider>
     );
     expect(screen.getByText('Test Product')).toBeInTheDocument();
@@ -54,13 +61,15 @@ describe('Content', () => {
   it('renders empty state when no articles', () => {
     render(
       <ThemeProvider theme={theme}>
-        <Content
-          categories={[
-            { ...mockCategories[0], categoryArticles: { articles: [] } }
-          ]}
-          loading={false}
-          error={null}
-        />
+        <CartProvider>
+          <Content
+            categories={[
+              { ...mockCategories[0], categoryArticles: { articles: [] } }
+            ]}
+            loading={false}
+            error={null}
+          />
+        </CartProvider>
       </ThemeProvider>
     );
     expect(

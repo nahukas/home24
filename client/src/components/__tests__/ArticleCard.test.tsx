@@ -3,6 +3,7 @@ import { ArticleCard } from '../ArticleCard';
 import { Article } from '../../types';
 import { ThemeProvider } from '@emotion/react';
 import { theme } from '../../styles/theme';
+import { CartProvider } from '../../context/cartContext';
 
 describe('ArticleCard', () => {
   const mockArticle: Article = {
@@ -24,7 +25,9 @@ describe('ArticleCard', () => {
   it('renders article details correctly', () => {
     render(
       <ThemeProvider theme={theme}>
-        <ArticleCard article={mockArticle} />
+        <CartProvider>
+          <ArticleCard article={mockArticle} />
+        </CartProvider>
       </ThemeProvider>
     );
     expect(screen.getByText('Test Product')).toBeInTheDocument();
@@ -41,7 +44,9 @@ describe('ArticleCard', () => {
   it('formats price correctly', () => {
     render(
       <ThemeProvider theme={theme}>
-        <ArticleCard article={mockArticle} />
+        <CartProvider>
+          <ArticleCard article={mockArticle} />
+        </CartProvider>
       </ThemeProvider>
     );
     expect(screen.getByText('99,99 €')).toBeInTheDocument();

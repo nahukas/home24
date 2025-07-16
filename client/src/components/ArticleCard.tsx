@@ -10,7 +10,8 @@ import {
   LayoutProps,
   TypographyProps
 } from 'styled-system';
-import { Article } from '../types';
+import { Article, CartItem } from '../types';
+import { useCart } from '../context/cartContext';
 
 interface ArticleCardProps {
   article: Article;
@@ -83,10 +84,21 @@ const AddToCartButton = styled.button<SpaceProps & ColorProps>`
 `;
 
 export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
+  const { addToCart } = useCart();
   const formatter = new Intl.NumberFormat('de-DE', {
     style: 'currency',
     currency: 'EUR'
   });
+
+  const handleAddToCart = () => {
+    const cartItem: CartItem = {
+      id: article.variantName,
+      name: article.name,
+      price: article.prices.regular.value / 100,
+      quantity: 1
+    };
+    addToCart(cartItem);
+  };
 
   return (
     <CardContainer p={2}>
@@ -96,7 +108,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({ article }) => {
         <CardPrice fontSize={2}>
           {formatter.format(article.prices.regular.value / 100)}
         </CardPrice>
-        <AddToCartButton p={1} type='button'>
+        <AddToCartButton p={1} type='button' onClick={handleAddToCart}>
           In den Warenkorb
         </AddToCartButton>
       </CardContentWrapper>

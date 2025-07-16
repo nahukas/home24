@@ -44,3 +44,10 @@ export interface Theme {
   fontSizes: number[];
   breakpoints: string[];
 }
+
+export interface CartItem {
+  id: string;
+  name: string;
+  price: number;
+  quantity: number;
+}

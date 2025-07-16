@@ -10,8 +10,8 @@ import {
 } from 'styled-system';
 import LogoIcon from '../assets/logo.svg';
 import { SearchWrapper, SearchInput, SearchButton } from './Search';
-import { FiSearch, FiShoppingCart } from 'react-icons/fi';
-import { CartWrapper, CartCount } from './Cart';
+import { FiSearch } from 'react-icons/fi';
+import CartSummary from './CartSummary';
 
 const LogoSVG = styled.img`
   height: 32px;
@@ -39,12 +39,6 @@ const LogoContainer = styled.div`
   cursor: pointer;
 `;
 
-const CartLabel = styled.span`
-  font-size: 12px;
-  color: #444;
-  margin-top: 4px;
-`;
-
 const handleLogoClick = () => {
   window.location.assign('/');
 };
@@ -66,11 +60,7 @@ const Header: React.FC = () => {
           <FiSearch size={16} />
         </SearchButton>
       </SearchWrapper>
-      <CartWrapper>
-        <FiShoppingCart size={24} />
-        <CartCount>1</CartCount>
-        <CartLabel>Warenkorb</CartLabel>
-      </CartWrapper>
+      <CartSummary />
     </HeaderContainer>
   );
 };
