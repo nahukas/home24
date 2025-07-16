@@ -77,7 +77,7 @@ const Sidebar: React.FC<SidebarProps> = ({ categories, loading, error }) => {
   };
 
   return (
-    <SidebarContainer p={3}>
+    <SidebarContainer p={3} data-testid='sidebar'>
       <SidebarTitle>Kategorien</SidebarTitle>
       {renderCategories()}
     </SidebarContainer>
