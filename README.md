@@ -1,70 +1,161 @@
-## home24 Frontend Tech Task
+# home24 Frontend Tech Task
 
-Owner|Type
----|---
-Front-End Chapter|Support
+## Demo
 
-### Welcome
+![Demo of Refactored Product Listing Page](./assets/video.gif)
 
-Welcome to the "take-home tech task". This repository contains an application that, when running, will request data from our GraphQL server and render a basic product listing page. It's a simple page, with a header, sidebar, some articles and a footer. Your task is to spend some time looking at how it is built and try to improve it by refactoring the code into something that you would be personally proud of.
+## Overview
 
-### Current Code & Structure
+Welcome to the home24 frontend tech task! This project is a simple product listing application built with a client-server architecture. The client is a React application written in TypeScript, utilizing Emotion.js and styled-system for styling, and it communicates with a GraphQL server. Your task is to refactor and improve the client-side code to create a polished, production-ready product listing page.
 
-The application is split into two parts, the server and the client. This test is mainly focussing on the client aspect of the code, so try and work mainly in the client folder. All code is written in TypeScript with React as this is what we use at home24 daily.
+The application consists of two main parts:
 
-##### Server
+- **Server**: A Node.js/Express server that proxies GraphQL requests to a public production GraphQL endpoint with a 5-minute cache.
+- **Client**: A React application (created with Vite) that renders a product listing page displaying 50 products from a specific category.
 
-The server is a basic API endpoint for accessing live data. The server is built using express and a simple 5-minute cache to reduce the number of unnecessary calls being made while you work on the client. The server proxies all POST requests from `/graphql` to our public production GraphQL endpoint.
+This README provides instructions for setting up, running, and testing the project.
 
-##### Client
+## Prerequisites
 
-The client is a basic create-react-app application that renders a product listing page. The page itself shows 50 products from a specific product category. The code and UX could do with some improvement, we've worked hard to create it in a way that will allow you plenty of room to show off your skills and experience that you've gained working as a Frontend Engineer. Please take some time to look around and spot all the areas that you would like to improve. Remember, that when you are finished, you should be happy with your work.
+Ensure you have the following installed:
 
-If you find that you couldn't finish everything that you wanted to, then please make a note of them in the [TODO.md](TODO.md). Make sure to include what it was you wanted to do and why you wanted to do it.
+- **Node.js** (v16 or higher recommended)
+- **Yarn** (package manager)
+- **Git** (to clone the repository)
+- A modern web browser (e.g., Chrome, Firefox, Safari)
 
-### Getting up & running
+## Getting Started
 
-Both the server and client need to be installed and started.
+Follow these steps to set up and run the project locally.
 
-##### Server
+### 1. Clone the Repository
 
-1) `cd server`
-2) `yarn`
-2) `yarn start`
+Clone the repository to your local machine:
 
-##### Client
+```bash
+git clone https://github.com/nahukas/home24.git
+cd home24
+```
 
-1) `cd ../client`
-2) `yarn`
-2) `yarn start`
+### 2. Server Setup
 
-_Note: create-react-app should open your default browser at localhost to show the application working._
+The server is a Node.js/Express application that proxies GraphQL requests.
 
-### Tips
+1. Navigate to the server directory:
 
-We use the following technologies. Demonstrating how you would use these would make it easier for us to see how smooth your transition into the team might be:
+   ```bash
+   cd server
+   ```
 
-1) React with [Hooks](https://reactjs.org/docs/hooks-intro.html)
-2) [Jest](https://jestjs.io/) & [Playwright](https://playwright.dev/)
-3) [Emotion.js](https://github.com/emotion-js/emotion) with [styled-system](https://styled-system.com/)
-4) [TypeScript](https://www.typescriptlang.org/)
+2. Install dependencies:
 
-_Note: it's not compulsory to use these technologies but it does help the team process your submission faster. If you aren't familiar with some or all of these then please don't worry, use whatever you need to get the job done_
+   ```bash
+   yarn
+   ```
 
-### Finishing up
+3. Start the server:
 
-Please make sure all your changes are included in your submission and that any new parts added to the application are documented so the team can easily see your hard work.
+   ```bash
+   yarn start
+   ```
 
-Code can be submitted back to your recruiter as a zip file containing all the code (excluding both node_modules folders) or you can push your code to a public version control system and send us the link e.g. Github etc
+   The server will run on `http://localhost:3001` and proxy GraphQL requests to the public endpoint.
 
-If you have any feedback or notes that you'd like to share with the team please add them to [NOTES.md](NOTES.md).
+### 3. Client Setup
 
-### What to expect
+The client is a React application built with Vite, TypeScript, Emotion.js, and styled-system.
 
-The team will review your submission and if everyone is happy with the work, we'll ask you to come in and meet us. Getting feedback on your submission can take anything between  3 - 5 working days.
+1. Navigate to the client directory:
 
-### Closing notes
+   ```bash
+   cd ../client
+   ```
 
-If you have any difficulty or something just isn't working as it should be, please let your recruiter know ASAP so we can support you.
+2. Install dependencies:
 
-Thank you for applying to work at home24, we value and appreciate the time that you are spending on this. Good luck and have fun.
+   ```bash
+   yarn
+   ```
+
+3. Start the development server:
+
+   ```bash
+   yarn dev
+   ```
+
+   The client will run on `http://localhost:5173` (default Vite port) and automatically open in your default browser. The client is configured to proxy API requests to `http://localhost:3001`.
+
+### 4. Running Tests
+
+The project includes unit tests (Jest) and end-to-end (E2E) tests (Playwright) to ensure code quality.
+
+#### Unit Tests (Jest)
+
+To run unit tests:
+
+```bash
+cd client
+yarn test
+```
+
+To run unit tests with coverage:
+
+```bash
+yarn test:coverage
+```
+
+- Tests are configured in `jest.config.js`.
+- The test suite uses `@testing-library/react` for React component testing and `jest-environment-jsdom` for a browser-like environment.
+- Coverage reports will be generated in the `coverage/` directory.
+
+#### End-to-End Tests (Playwright)
+
+To run E2E tests:
+
+```bash
+cd client
+yarn test:e2e
+```
+
+- Playwright tests are configured to run against the application in a real browser environment.
+- Ensure the server (`yarn start` in the `server` directory) and client (`yarn dev` in the `client` directory) are running before executing E2E tests.
+- Test files are typically located in the `tests/` directory (or as specified in the Playwright configuration).
+
+### 5. Building for Production
+
+To build the client for production:
+
+```bash
+cd client
+yarn build
+```
+
+The optimized build will be generated in the `dist/` directory.
+
+To preview the production build locally:
+
+```bash
+yarn preview
+```
+
+### Project Structure
+
+- **server/**: Contains the Node.js/Express server that proxies GraphQL requests.
+- **client/**: Contains the React application.
+  - `src/`: Source code for the React application, including components, styles, and GraphQL queries.
+  - `tests/`: Unit and E2E test files (if applicable).
+  - `package.json`: Client dependencies and scripts.
+  - `jest.config.js`: Jest configuration for unit tests.
+  - `playwright.config.ts`: Playwright configuration for E2E tests.
+
+### Technologies Used
+
+The project leverages the following technologies:
+
+- **React**: Frontend library with Hooks for building the UI.
+- **TypeScript**: Static typing for improved code reliability.
+- **Emotion.js**: CSS-in-JS for styling components.
+- **styled-system**: Utility for consistent styling with design tokens.
+- **Jest**: Unit testing framework.
+- **Playwright**: End-to-end testing framework.
+- **Vite**: Build tool for fast development and production builds.
