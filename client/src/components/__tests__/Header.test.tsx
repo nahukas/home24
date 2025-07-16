@@ -1,13 +1,23 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import Header from '../Header';
+import { ThemeProvider } from '@emotion/react';
+import { theme } from '../../styles/theme';
+
+jest.mock('../../assets/logo.svg', () => 'mocked-logo.svg');
 
 describe('Header', () => {
-  it('renders home24 branding and search input', () => {
-    render(<Header />);
-    expect(screen.getByText('home24')).toBeInTheDocument();
-    expect(screen.getByPlaceholderText('Search')).toBeInTheDocument();
+  test('renders header with logo, search input, and cart', () => {
+    render(
+      <ThemeProvider theme={theme}>
+        <Header />
+      </ThemeProvider>
+    );
+
+    expect(screen.getByAltText('Logo')).toBeInTheDocument();
     expect(
-      screen.getByRole('textbox', { name: /search products/i })
+      screen.getByPlaceholderText('Wonach suchst du?')
     ).toBeInTheDocument();
+    expect(screen.getByText('Warenkorb')).toBeInTheDocument();
+    expect(screen.getByText('1')).toBeInTheDocument();
   });
 });

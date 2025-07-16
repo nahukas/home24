@@ -1,4 +1,15 @@
 import React from 'react';
+import styled from '@emotion/styled';
+import {
+  space,
+  color,
+  layout,
+  typography,
+  SpaceProps,
+  ColorProps,
+  LayoutProps,
+  TypographyProps
+} from 'styled-system';
 import { Category } from '../types';
 
 interface SidebarProps {
@@ -7,6 +18,44 @@ interface SidebarProps {
   error: string | null;
 }
 
+const SidebarContainer = styled.aside<SpaceProps & ColorProps & LayoutProps>`
+  ${space}
+  ${color}
+  ${layout}
+  grid-area: sidebar;
+  background-color: ${({ theme }) => theme.colors.background};
+`;
+
+const SidebarTitle = styled.h3<TypographyProps>`
+  ${typography}
+  margin: 0;
+  padding: ${({ theme }) => theme.space[2]}px;
+  color: ${({ theme }) => theme.colors.text};
+`;
+
+const CategoryList = styled.ul`
+  ${space}
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const CategoryItem = styled.li<SpaceProps>`
+  ${space}
+  margin-left: ${({ theme }) => theme.space[1]}px;
+  padding: ${({ theme }) => theme.space[2]}px 0;
+`;
+
+const CategoryLink = styled.a<TypographyProps>`
+  ${typography}
+  color: ${({ theme }) => theme.colors.text};
+  text-decoration: none;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
 const Sidebar: React.FC<SidebarProps> = ({ categories, loading, error }) => {
   const renderCategories = () => {
     if (loading) return <div>Loading...</div>;
@@ -14,21 +63,23 @@ const Sidebar: React.FC<SidebarProps> = ({ categories, loading, error }) => {
     if (!categories.length) return <div>No categories found</div>;
 
     return (
-      <ul>
+      <CategoryList>
         {categories[0].childrenCategories.list.map(({ name, urlPath }) => (
-          <li key={urlPath}>
-            <a href={`/${urlPath}`}>{name}</a>
-          </li>
+          <CategoryItem key={urlPath}>
+            <CategoryLink href={`/${urlPath}`} fontSize={2}>
+              {name}
+            </CategoryLink>
+          </CategoryItem>
         ))}
-      </ul>
+      </CategoryList>
     );
   };
 
   return (
-    <aside className='sidebar'>
-      <h3>Kategorien</h3>
+    <SidebarContainer p={3}>
+      <SidebarTitle>Kategorien</SidebarTitle>
       {renderCategories()}
-    </aside>
+    </SidebarContainer>
   );
 };
 

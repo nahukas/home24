@@ -1,6 +1,10 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import ProductList from './ProductList';
 import { Category } from './types';
+import { ThemeProvider } from '@emotion/react';
+import { theme } from './styles/theme';
+
+jest.mock('./assets/logo.svg', () => 'mocked-logo.svg');
 
 describe('ProductList', () => {
   const mockCategories: Category[] = [
@@ -22,23 +26,49 @@ describe('ProductList', () => {
   });
 
   it('renders the ProductList with home24 branding', async () => {
-    render(<ProductList />);
+    render(
+      <ThemeProvider theme={theme}>
+        <ProductList />
+      </ThemeProvider>
+    );
     await waitFor(() =>
-      expect(screen.getByText(/home24/i)).toBeInTheDocument()
+      expect(screen.getByAltText('Logo')).toBeInTheDocument()
     );
   });
 
   it('renders loading state initially', async () => {
-    render(<ProductList />);
+    (global.fetch as jest.Mock).mockImplementationOnce(
+      () =>
+        new Promise((resolve) =>
+          setTimeout(
+            () =>
+              resolve({
+                ok: true,
+                json: async () => ({ data: { categories: mockCategories } })
+              }),
+            500
+          )
+        )
+    );
+
+    render(
+      <ThemeProvider theme={theme}>
+        <ProductList />
+      </ThemeProvider>
+    );
+
+    const aside = screen.getByRole('complementary');
     await waitFor(() =>
-      expect(
-        screen.getByRole('heading', { name: 'Loading...' })
-      ).toBeInTheDocument()
+      expect(within(aside).getByText('Loading...')).toBeInTheDocument()
     );
   });
 
   it('renders categories after fetch', async () => {
-    render(<ProductList />);
+    render(
+      <ThemeProvider theme={theme}>
+        <ProductList />
+      </ThemeProvider>
+    );
     await waitFor(() =>
       expect(
         screen.getByRole('heading', { name: /Furniture.*\(50\)/ })
@@ -53,12 +83,17 @@ describe('ProductList', () => {
       status: 500
     });
 
-    render(<ProductList />);
-    await waitFor(() =>
-      expect(
-        screen.getByText('Error: Failed to fetch products')
-      ).toBeInTheDocument()
+    render(
+      <ThemeProvider theme={theme}>
+        <ProductList />
+      </ThemeProvider>
     );
+    await waitFor(() => {
+      const aside = screen.getByRole('complementary');
+      expect(
+        within(aside).getByText('Error: Failed to fetch products')
+      ).toBeInTheDocument();
+    });
   });
 
   it('renders no categories state when categories are empty', async () => {
@@ -67,7 +102,11 @@ describe('ProductList', () => {
       json: async () => ({ data: { categories: [] } })
     });
 
-    render(<ProductList />);
+    render(
+      <ThemeProvider theme={theme}>
+        <ProductList />
+      </ThemeProvider>
+    );
     await waitFor(() =>
       expect(screen.getByText('No categories found')).toBeInTheDocument()
     );

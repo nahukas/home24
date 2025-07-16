@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import Content from '../Content';
 import { Category } from '../../types';
+import { ThemeProvider } from '@emotion/react';
+import { theme } from '../../styles/theme';
 
 describe('Content', () => {
   const mockCategories: Category[] = [
@@ -22,28 +24,28 @@ describe('Content', () => {
   ];
 
   it('renders loading state', () => {
-    render(<Content categories={[]} loading={true} error={null} />);
-    expect(
-      screen.getByRole('heading', { name: 'Loading...' })
-    ).toBeInTheDocument();
+    render(
+      <ThemeProvider theme={theme}>
+        <Content categories={[]} loading={true} error={null} />
+      </ThemeProvider>
+    );
+    expect(screen.getByText('Loading...')).toBeInTheDocument();
   });
 
   it('renders error state', () => {
     render(
-      <Content
-        categories={[]}
-        loading={false}
-        error='Failed to fetch products'
-      />
+      <ThemeProvider theme={theme}>
+        <Content categories={[]} loading={false} error='Failed to load' />
+      </ThemeProvider>
     );
-    expect(
-      screen.getByRole('heading', { name: 'Loading...' })
-    ).toBeInTheDocument();
+    expect(screen.getByText('Error: Failed to load')).toBeInTheDocument();
   });
 
   it('renders articles from categories', () => {
     render(
-      <Content categories={mockCategories} loading={false} error={null} />
+      <ThemeProvider theme={theme}>
+        <Content categories={mockCategories} loading={false} error={null} />
+      </ThemeProvider>
     );
     expect(screen.getByText('Test Product')).toBeInTheDocument();
     expect(screen.getByText('99,99 €')).toBeInTheDocument();
@@ -51,13 +53,15 @@ describe('Content', () => {
 
   it('renders empty state when no articles', () => {
     render(
-      <Content
-        categories={[
-          { ...mockCategories[0], categoryArticles: { articles: [] } }
-        ]}
-        loading={false}
-        error={null}
-      />
+      <ThemeProvider theme={theme}>
+        <Content
+          categories={[
+            { ...mockCategories[0], categoryArticles: { articles: [] } }
+          ]}
+          loading={false}
+          error={null}
+        />
+      </ThemeProvider>
     );
     expect(
       screen.getByRole('heading', { name: /Furniture.*\(50\)/ })

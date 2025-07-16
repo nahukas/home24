@@ -2,6 +2,7 @@ module.exports = {
   testEnvironment: 'jest-environment-jsdom',
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
   transform: {
+    '^.+\\.svg$': 'jest-transformer-svg',
     '^.+\\.(ts|tsx)$': [
       'ts-jest',
       {

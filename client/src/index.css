@@ -1,58 +1,73 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
-    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-.page {
-  display: grid;
-  grid-gap: 20px;
-  grid-template-columns: 160px auto auto;
-  grid-template-areas:
-    'header header header'
-    'sidebar content content'
-    'footer footer footer';
-  margin: 6px;
+/* CSS Reset */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
 
-.page > * {
-  padding: 10px;
-}
-
-.header {
-  grid-area: header;
-  background-color: lightblue;
-}
-
-.header input {
-  float: right;
-}
-
-.sidebar {
-  grid-area: sidebar;
-  background-color: lavender;
-}
-
-.sidebar ul {
-  list-style-type: none;
+* {
   margin: 0;
-  padding: 0;
 }
 
-.sidebar ul li {
-  margin: 0 0 0 8px;
-  padding: 8px 0;
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    interpolate-size: allow-keywords;
+  }
+}
+body {
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
 
-.content {
-  grid-area: content;
-  grid-column: span 2;
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
 }
 
-.footer {
-  grid-area: footer;
-  background-color: lightblue;
-  text-align: center;
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+
+p {
+  text-wrap: pretty;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  text-wrap: balance;
+}
+
+#root,
+#__next {
+  isolation: isolate;
 }

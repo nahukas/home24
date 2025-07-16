@@ -1,6 +1,17 @@
 import React from 'react';
-import { Category } from '../types';
+import styled from '@emotion/styled';
+import {
+  space,
+  layout,
+  SpaceProps,
+  LayoutProps,
+  color,
+  typography,
+  TypographyProps,
+  ColorProps
+} from 'styled-system';
 import { ArticleCard } from './ArticleCard';
+import { Category } from '../types';
 
 interface ContentProps {
   categories: Category[];
@@ -8,32 +19,65 @@ interface ContentProps {
   error: string | null;
 }
 
-const Content: React.FC<ContentProps> = ({ categories, loading, error }) => {
-  const renderArticles = () => {
-    if (loading || error || !categories.length) return null;
+const ContentContainer = styled.main<SpaceProps & LayoutProps & ColorProps>`
+  ${space}
+  ${layout}
+  ${color}
+  grid-area: content;
+  grid-column: span 2;
+  padding: ${({ theme }) => theme.space[2]}px;
+`;
 
-    return categories.map((category) =>
-      category.categoryArticles.articles.map((article) => (
-        <ArticleCard
-          key={`${article.name}-${article.variantName}`}
-          article={article}
-        />
-      ))
-    );
-  };
+const ArticlesGrid = styled.div<SpaceProps & LayoutProps>`
+  ${space}
+  ${layout}
+  display: grid;
+  grid-gap: ${({ theme }) => theme.space[4]}px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+`;
+
+const CategoryTitle = styled.h1<TypographyProps>`
+  ${typography}
+  margin: 0;
+  padding: ${({ theme }) => theme.space[2]}px 0;
+  color: ${({ theme }) => theme.colors.text};
+`;
+
+const LoadingMessage = styled.div<TypographyProps>`
+  ${typography}
+  text-align: center;
+  padding: ${({ theme }) => theme.space[3]}px;
+`;
+
+const ErrorMessage = styled.div<TypographyProps>`
+  ${typography}
+  color: ${({ theme }) => theme.colors.secondary};
+  text-align: center;
+  padding: ${({ theme }) => theme.space[3]}px;
+`;
+
+const Content: React.FC<ContentProps> = ({ categories, loading, error }) => {
+  if (loading) return <LoadingMessage>Loading...</LoadingMessage>;
+  if (error) return <ErrorMessage>Error: {error}</ErrorMessage>;
 
   return (
-    <main className='content'>
-      {categories.length ? (
-        <h1>
-          {categories[0].name}
-          <small> ({categories[0].articleCount})</small>
-        </h1>
-      ) : (
-        <h1>Loading...</h1>
+    <ContentContainer>
+      {categories.length > 0 && (
+        <CategoryTitle>
+          {categories[0].name} <small>({categories[0].articleCount})</small>
+        </CategoryTitle>
       )}
-      <div className='articles'>{renderArticles()}</div>
-    </main>
+      <ArticlesGrid>
+        {categories.flatMap((category) =>
+          category.categoryArticles.articles.map((article) => (
+            <ArticleCard
+              key={`${article.name}-${article.variantName}`}
+              article={article}
+            />
+          ))
+        )}
+      </ArticlesGrid>
+    </ContentContainer>
   );
 };
 
