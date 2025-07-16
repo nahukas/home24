@@ -1,6 +1,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
-import useProductData from '../useProductData';
+
 import { Category } from '../../types';
+import useProductData from '../useProductData';
 
 describe('useProductData', () => {
   const mockCategories: Category[] = [

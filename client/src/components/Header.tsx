@@ -1,17 +1,17 @@
-import React from 'react';
 import styled from '@emotion/styled';
-import {
-  space,
-  layout,
-  SpaceProps,
-  ColorProps,
-  LayoutProps,
-  color
-} from 'styled-system';
-import LogoIcon from '../assets/logo.svg';
-import { SearchWrapper, SearchInput, SearchButton } from './Search';
+import React from 'react';
 import { FiSearch } from 'react-icons/fi';
+import {
+  color,
+  ColorProps,
+  layout,
+  LayoutProps,
+  space,
+  SpaceProps} from 'styled-system';
+
+import LogoIcon from '../assets/logo.svg';
 import CartSummary from './CartSummary';
+import { SearchButton,SearchInput, SearchWrapper } from './Search';
 
 const LogoSVG = styled.img`
   height: 32px;

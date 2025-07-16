@@ -1,17 +1,17 @@
-import React from 'react';
 import styled from '@emotion/styled';
+import React from 'react';
 import {
-  space,
-  layout,
-  SpaceProps,
-  LayoutProps,
   color,
+  ColorProps,
+  layout,
+  LayoutProps,
+  space,
+  SpaceProps,
   typography,
-  TypographyProps,
-  ColorProps
-} from 'styled-system';
-import { ArticleCard } from './ArticleCard';
+  TypographyProps} from 'styled-system';
+
 import { Category } from '../types';
+import { ArticleCard } from './ArticleCard';
 
 interface ContentProps {
   categories: Category[];

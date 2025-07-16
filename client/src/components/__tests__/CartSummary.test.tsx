@@ -1,7 +1,8 @@
-import { screen, fireEvent } from '@testing-library/react';
-import CartSummary from '../CartSummary';
+import { fireEvent,screen } from '@testing-library/react';
+
 import { useCart } from '../../context/cartContext';
 import { renderWithProviders } from '../../test/utils/renderWithProviders';
+import CartSummary from '../CartSummary';
 
 jest.mock('../../context/cartContext', () => ({
   useCart: jest.fn(),
@@ -9,7 +10,7 @@ jest.mock('../../context/cartContext', () => ({
     <div>{children}</div>
   )
 }));
-
+// 
 const mockUseCart = useCart as jest.Mock;
 
 describe('CartSummary', () => {

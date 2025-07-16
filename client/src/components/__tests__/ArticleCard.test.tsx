@@ -1,7 +1,8 @@
-import { screen } from '@testing-library/react';
-import { ArticleCard } from '../ArticleCard';
-import { Article } from '../../types';
+import {screen } from '@testing-library/react';
+
 import { renderWithProviders } from '../../test/utils/renderWithProviders';
+import { Article } from '../../types';
+import { ArticleCard } from '../ArticleCard';
 
 describe('ArticleCard', () => {
   const mockArticle: Article = {

@@ -1,8 +1,9 @@
-import React, { ReactElement } from 'react';
-import { render, RenderOptions } from '@testing-library/react';
 import { ThemeProvider } from '@emotion/react';
-import { theme } from '../../styles/theme';
+import { render, RenderOptions } from '@testing-library/react';
+import React, { ReactElement } from 'react';
+
 import { CartProvider } from '../../context/cartContext';
+import { theme } from '../../styles/theme';
 
 const AllProviders = ({ children }: { children: React.ReactNode }) => {
   return (

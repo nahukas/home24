@@ -1,6 +1,7 @@
-import { renderHook, act } from '@testing-library/react';
-import { CartProvider, useCart } from '../cartContext';
+import { act,renderHook } from '@testing-library/react';
+
 import { CartItem } from '../../types';
+import { CartProvider, useCart } from '../cartContext';
 
 const localStorageMock = {
   getItem: jest.fn(),

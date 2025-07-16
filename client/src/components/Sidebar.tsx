@@ -1,15 +1,16 @@
-import React from 'react';
 import styled from '@emotion/styled';
+import React from 'react';
 import {
-  space,
   color,
-  layout,
-  typography,
-  SpaceProps,
   ColorProps,
+  layout,
   LayoutProps,
+  space,
+  SpaceProps,
+  typography,
   TypographyProps
 } from 'styled-system';
+
 import { Category } from '../types';
 
 interface SidebarProps {

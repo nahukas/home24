@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { Category } from '../types';
+
 import { fetchCategories } from '../services/fetchCategories';
+import { Category } from '../types';
 
 const useProductData = () => {
   const [categories, setCategories] = useState<Category[]>([]);
@@ -12,7 +13,7 @@ const useProductData = () => {
       try {
         const result = await fetchCategories();
         setCategories(result);
-      } catch (err) {
+      } catch {
         setError('Failed to fetch products');
       } finally {
         setLoading(false);

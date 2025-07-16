@@ -1,13 +1,12 @@
-import React from 'react';
 import styled from '@emotion/styled';
+import React from 'react';
 import {
-  space,
   color,
-  layout,
-  SpaceProps,
   ColorProps,
-  LayoutProps
-} from 'styled-system';
+  layout,
+  LayoutProps,
+  space,
+  SpaceProps} from 'styled-system';
 
 const FooterContainer = styled.footer<SpaceProps & ColorProps & LayoutProps>`
   ${space}

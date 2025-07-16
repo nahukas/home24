@@ -1,7 +1,8 @@
 import { screen, waitFor, within } from '@testing-library/react';
+
 import ProductList from './ProductList';
-import { Category } from './types';
 import { renderWithProviders } from './test/utils/renderWithProviders';
+import { Category } from './types';
 
 jest.mock('./assets/logo.svg', () => 'mocked-logo.svg');
 

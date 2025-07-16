@@ -1,11 +1,12 @@
+import styled from '@emotion/styled';
 import React from 'react';
-import Header from './components/Header';
-import Sidebar from './components/Sidebar';
+import { layout, LayoutProps, space, SpaceProps } from 'styled-system';
+
 import Content from './components/Content';
 import Footer from './components/Footer';
+import Header from './components/Header';
+import Sidebar from './components/Sidebar';
 import useProductData from './hooks/useProductData';
-import { layout, LayoutProps, space, SpaceProps } from 'styled-system';
-import styled from '@emotion/styled';
 
 const PageContainer = styled.div<SpaceProps & LayoutProps>`
   ${space}

@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import {
-  space,
-  color,
-  layout,
-  SpaceProps,
-  ColorProps,
-  LayoutProps
-} from 'styled-system';
+import React, { useState } from 'react';
 import { FiShoppingCart, FiTrash2 } from 'react-icons/fi';
+import {
+  color,
+  ColorProps,
+  layout,
+  LayoutProps,
+  space,
+  SpaceProps} from 'styled-system';
+
 import { useCart } from '../context/cartContext';
 
 const CartWrapper = styled.div<SpaceProps & ColorProps & LayoutProps>`

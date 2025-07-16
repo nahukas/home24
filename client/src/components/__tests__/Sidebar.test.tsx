@@ -1,7 +1,8 @@
 import { screen } from '@testing-library/react';
-import Sidebar from '../Sidebar';
-import { Category } from '../../types';
+
 import { renderWithProviders } from '../../test/utils/renderWithProviders';
+import { Category } from '../../types';
+import Sidebar from '../Sidebar';
 
 const mockCategories: Category[] = [
   {

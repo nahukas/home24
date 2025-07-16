@@ -1,7 +1,8 @@
 import { screen } from '@testing-library/react';
-import Content from '../Content';
-import { Category } from '../../types';
+
 import { renderWithProviders } from '../../test/utils/renderWithProviders';
+import { Category } from '../../types';
+import Content from '../Content';
 
 const mockCategories: Category[] = [
   {

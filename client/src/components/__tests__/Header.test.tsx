@@ -1,6 +1,7 @@
-import { screen } from '@testing-library/react';
-import Header from '../Header';
+import {screen} from '@testing-library/react';
+
 import { renderWithProviders } from '../../test/utils/renderWithProviders';
+import Header from '../Header';
 
 jest.mock('../../assets/logo.svg', () => 'mocked-logo.svg');
 
